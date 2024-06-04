@@ -15,6 +15,7 @@ import VideoConference from './pages/VideoConference';
 import MyMeetings from './pages/MyMeetings';
 import Meeting from './pages/Meeting';
 import JoinMeeting from './pages/JoinMeeting';
+import WhiteBoard from './pages/WhiteBoard';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
               <Route path='/mymeetings' element={<MyMeetings />} />
               <Route path='/meetings' element={<Meeting />} />
               <Route path='/join/:id' element={<JoinMeeting />} />
+              <Route path='/whiteboard' element={<WhiteBoard />} />
               <Route path='/' element={<Dashboard />} />
               <Route path='*' element={<Dashboard />} />
             </Routes>

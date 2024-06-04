@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
 import { useDispatch } from "react-redux";
-import { EuiButton, EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiHeader, EuiText, EuiTextColor } from "@elastic/eui";
+import { EuiToolTip, EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiHeader, EuiText, EuiTextColor } from "@elastic/eui";
 import { firebaseAuth } from "../utils/FirebaseConfig";
 import { signOut } from "firebase/auth";
 import { changeTheme } from "../app/slices/AuthSlice";
-import { getCreateMeetingBreadCrumbs, getMeetingsBreadCrumbs, getMyMeetingsBreadCrumbs, getOneonOneMeetingBreadCrumbs, getVideoConferenceBreadCrumbs } from "../utils/breadCrumbs";
+import { getCreateMeetingBreadCrumbs, getMeetingsBreadCrumbs, getMyMeetingsBreadCrumbs, getOneonOneMeetingBreadCrumbs, getVideoConferenceBreadCrumbs, getWhiteBoardBreadCrumbs } from "../utils/breadCrumbs";
 
 function Header() {
     
@@ -45,6 +45,9 @@ function Header() {
         else if(pathname === '/meetings'){
             setBreadcrumbs(getMeetingsBreadCrumbs(navigate))
         }
+        else if(pathname === '/whiteboard'){
+            setBreadcrumbs(getWhiteBoardBreadCrumbs(navigate))
+        }
     },[location,navigate])
 
     const invertTheme = () => {
@@ -53,12 +56,16 @@ function Header() {
         dispatch(changeTheme({isDarkTheme:!isDarkTheme}))
     }
 
+    const whiteBoard = () =>{
+        navigate('/whiteboard')
+    }
+
     const section = [{
         items:[
             <Link to='/'>
                 <EuiText>
                     <h2 style={{padding:"0 1vw"}}>
-                        <EuiTextColor color="#0b5cff">Zoom</EuiTextColor>
+                        <EuiTextColor color="#0b5cff">E Learning</EuiTextColor>
                     </h2>
                 </EuiText>
             </Link>,
@@ -113,9 +120,17 @@ function Header() {
                 </EuiFlexItem>
 
                 <EuiFlexItem grow={false} style={{flexBasis:"fit-content"}}>
-                    <EuiButtonIcon onClick={logout} iconType="lock" display="fill" size ='s' aria-label="logout-button">
-                        
+                    <EuiToolTip content="White Board" position="bottom">
+                    <EuiButtonIcon onClick={whiteBoard} iconType="desktop" display="fill" size ='s' aria-label="WhiteBoard">
                     </EuiButtonIcon>
+                    </EuiToolTip>
+                </EuiFlexItem>
+
+                <EuiFlexItem grow={false} style={{flexBasis:"fit-content"}}>
+                    <EuiToolTip content="Logout" position="bottom">
+                    <EuiButtonIcon onClick={logout} iconType="lock" display="fill" size ='s' aria-label="logout-button">
+                    </EuiButtonIcon>
+                    </EuiToolTip>
                 </EuiFlexItem>
 
             </EuiFlexGroup>
@@ -128,7 +143,7 @@ function Header() {
             <Link to='/'>
                 <EuiText>
                     <h2 style={{padding:"0 1vw"}}>
-                        <EuiTextColor color="#0b5cff">Zoom</EuiTextColor>
+                        <EuiTextColor color="#0b5cff">E Learning</EuiTextColor>
                     </h2>
                 </EuiText>
             </Link>,
